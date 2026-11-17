@@ -1,5 +1,5 @@
 resource "aws_vpc" "tf_vpc" {
-  cidr_block = "10.1.0.0/16"
+  cidr_block = var.vpc_cidr
   tags = {
     Name = "tf_vpc"
   }
@@ -7,7 +7,7 @@ resource "aws_vpc" "tf_vpc" {
 
 resource "aws_subnet" "public_subnet" {
     vpc_id = aws_vpc.tf_vpc.id
-    cidr_block = "10.1.1.0/24"
+    cidr_block = var.subnet_cidr
     map_public_ip_on_launch = true
 
     tags = {
@@ -84,7 +84,7 @@ resource "aws_iam_instance_profile" "ec2_profile" {
 
 resource "aws_instance" "terraform-server" {
   ami = "ami-0d6dd9e8265d48906"
-  instance_type = "t3.small"
+  instance_type = var.instance_type
   subnet_id = aws_subnet.public_subnet.id
   vpc_security_group_ids = [ aws_security_group.tf_sg.id ]
   associate_public_ip_address = true
@@ -105,7 +105,7 @@ resource "aws_instance" "terraform-server" {
 
 
 resource "aws_s3_bucket" "tf_bucket" {
-  bucket = "tf-bucket-2024.bucket.io"
+  bucket = "tf-bucket-2026.bucket.io"
   tags = {
     Name = "tf_bucket"
   }

@@ -17,7 +17,6 @@ This Terraform project creates a simple AWS networking and compute setup for a q
 - `project-1.0/` — active Terraform configuration
   - `main.tf` — AWS resources
   - `provider.tf` — AWS provider configuration
-- `second/` — placeholder directory for additional Terraform work
 
 ## Prerequisites
 

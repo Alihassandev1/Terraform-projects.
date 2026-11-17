@@ -1,7 +1,7 @@
 resource "aws_instance" "terraform-server" {
   ami = "ami-0d6dd9e8265d48906"
   instance_type = var.instance_type
-  subnet_id = aws_subnet.public_subnet.id
+  subnet_id = var.subnet_id
   vpc_security_group_ids = [ aws_security_group.tf_sg.id ]
   associate_public_ip_address = true
   iam_instance_profile = aws_iam_instance_profile.ec2_profile.name

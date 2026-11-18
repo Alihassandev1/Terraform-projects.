@@ -15,18 +15,6 @@ resource "aws_subnet" "public_subnet" {
     }
 }
 
-resource "aws_subnet" "test-subnets" {
-  for_each = var.subnets
-
-  vpc_id            = aws_vpc.tf_vpc.id
-  cidr_block        = each.value.cidr_block
-  availability_zone = each.value.availability_zone
-
-  tags = {
-    Name = each.key
-  }
-}
-
 resource "aws_internet_gateway" "tf_igw" {
   vpc_id = aws_vpc.tf_vpc.id
   tags = {
@@ -51,15 +39,22 @@ resource "aws_route_table_association" "route_table_association" {
     route_table_id = aws_route_table.public_route_table.id
 }
 
+
+
 resource "aws_security_group" "tf_sg" {
   name = "tf_sg"
   description = "Allow SSH"
   vpc_id = aws_vpc.tf_vpc.id
 
   egress {
-    description = "Allow HTTPS"
     from_port   = 443
     to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    from_port   = 80
+    to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }

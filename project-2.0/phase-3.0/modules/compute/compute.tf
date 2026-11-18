@@ -1,14 +1,14 @@
 resource "aws_instance" "terraform-server" {
-  ami = var.instance_config.ami
+  ami = "ami-0d6dd9e8265d48906"
   instance_type = var.instance_type[var.environment]
-  subnet_id = var.instance_config.subnet_id
-  vpc_security_group_ids = var.instance_config.vpc_security_group_ids
-  associate_public_ip_address = var.instance_config.associate_public_ip_address
-  iam_instance_profile = var.instance_config.iam_instance_profile
-  key_name = var.instance_config.key_name
+  subnet_id = var.subnet_id
+  vpc_security_group_ids = [var.security_group_id]
+  associate_public_ip_address = true
+  iam_instance_profile = var.iam_instance_profile
+  key_name = "myacc"
   user_data = templatefile("${path.module}/templates/fastapi.sh.tftpl", {
     container_name = var.container_name
-    docker_image = var.docker_image
+    docker_image   = var.container_docker_image
   })
 
    root_block_device {
@@ -24,14 +24,14 @@ resource "aws_instance" "terraform-server" {
 }
 
 resource "aws_instance" "terraform-servers-loop" {
-  ami = var.instance_config.ami
+  ami = "ami-0d6dd9e8265d48906"
   count = 3
   instance_type = var.instance_type[var.environment]
-  subnet_id = var.instance_config.subnet_id
-  vpc_security_group_ids = var.instance_config.vpc_security_group_ids
-  associate_public_ip_address = var.instance_config.associate_public_ip_address
-  iam_instance_profile = var.instance_config.iam_instance_profile
-  key_name = var.instance_config.key_name
+  subnet_id = var.subnet_id
+  vpc_security_group_ids = [var.security_group_id]
+  associate_public_ip_address = true
+  iam_instance_profile = var.iam_instance_profile
+  key_name = "myacc"
   
   tags = {
     Name = "terraform-server-${count.index + 2}"

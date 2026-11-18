@@ -1,0 +1,8 @@
+state_bucket_name = "replace-with-a-globally-unique-state-bucket"
+
+# Include the IAM principal used to manage this bucket, approved operators,
+# and CI roles that need to run Terraform for dev or staging.
+approved_principal_arns = [
+  "arn:aws:iam::123456789012:role/terraform-operator",
+  "arn:aws:iam::123456789012:role/terraform-ci"
+]

@@ -60,7 +60,7 @@ variable "container_name" {
   type = string
 }
 
-variable "docker_image" {
+variable "container_docker_image" {
   description = "The image of the container"
   type = string
 }

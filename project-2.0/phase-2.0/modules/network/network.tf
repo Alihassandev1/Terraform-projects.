@@ -15,6 +15,18 @@ resource "aws_subnet" "public_subnet" {
     }
 }
 
+resource "aws_subnet" "test-subnets" {
+  for_each = var.subnets
+
+  vpc_id            = aws_vpc.tf_vpc.id
+  cidr_block        = each.value.cidr_block
+  availability_zone = each.value.availability_zone
+
+  tags = {
+    Name = each.key
+  }
+}
+
 resource "aws_internet_gateway" "tf_igw" {
   vpc_id = aws_vpc.tf_vpc.id
   tags = {

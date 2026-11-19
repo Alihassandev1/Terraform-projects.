@@ -38,6 +38,15 @@ resource "aws_iam_role_policy" "secret_access" {
         "secretsmanager:GetSecretValue"
       ]
       Resource = var.secret_arn
+    },
+    {
+      Effect = "Allow"
+      Action = [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ]
+      Resource = "*"
     }]
   })
 }

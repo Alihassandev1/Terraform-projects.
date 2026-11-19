@@ -3,6 +3,11 @@ resource "aws_cloudwatch_log_group" "app" {
   retention_in_days = 7
 }
 
+resource "aws_cloudwatch_log_group" "system" {
+  name              = "/linkedops/system"
+  retention_in_days = 7
+}
+
 resource "aws_cloudwatch_metric_alarm" "cpu" {
   alarm_name          = "${var.environment}-high-cpu"
   comparison_operator = "GreaterThanThreshold"
@@ -27,4 +32,48 @@ resource "aws_sns_topic_subscription" "email" {
   topic_arn = aws_sns_topic.alerts.arn
   protocol  = "email"
   endpoint  = var.alert_email
+}
+
+resource "aws_cloudwatch_dashboard" "app" {
+  dashboard_name = "${var.environment}-linkedops"
+
+  dashboard_body = jsonencode({
+    widgets = [
+      {
+        type   = "metric"
+        width  = 12
+        height = 6
+
+        properties = {
+          title  = "EC2 CPU Utilization"
+          region = "us-east-1"
+
+          metrics = [
+            ["AWS/EC2", "CPUUtilization", "InstanceId", var.instance_id]
+          ]
+
+          period = 300
+          stat   = "Average"
+        }
+      },
+      {
+        type   = "metric"
+        width  = 12
+        height = 6
+
+        properties = {
+          title  = "EC2 Network Traffic"
+          region = "us-east-1"
+
+          metrics = [
+            ["AWS/EC2", "NetworkIn", "InstanceId", var.instance_id],
+            [".", "NetworkOut", ".", "."]
+          ]
+
+          period = 300
+          stat   = "Average"
+        }
+      }
+    ]
+  })
 }

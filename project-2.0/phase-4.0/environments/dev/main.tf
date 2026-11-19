@@ -27,3 +27,11 @@ module "secret" {
   database_url = var.database_url
   api_key      = var.api_key
 }
+
+module "observability" {
+  source = "../../modules/observability"
+
+  environment = var.environment
+  instance_id = module.compute.instance_id
+  alert_email = var.alert_email
+}

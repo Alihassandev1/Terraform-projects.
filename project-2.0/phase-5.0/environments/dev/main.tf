@@ -35,3 +35,13 @@ module "observability" {
   instance_id = module.compute.instance_id
   alert_email = var.alert_email
 }
+
+module "ingress" {
+  source = "../../modules/ingress"
+
+  vpc_id                = module.network.vpc_id
+  public_subnet_ids     = module.network.public_subnet_ids
+  docker_image          = var.docker_image
+  log_group_name        = var.log_group_name
+  instance_profile_name = module.roles.iam_instance_profile_name
+}

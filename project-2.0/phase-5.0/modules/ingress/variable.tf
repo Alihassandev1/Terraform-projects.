@@ -1,6 +1,6 @@
 variable "project_name" {
   description = "The name of the project"
-  default     = "project-2.0"
+  default     = "final-architecture"
 }
 
 variable "vpc_id" {

@@ -1,3 +1,3 @@
 variable "environment" {}
-variable "instance_id" {}
 variable "alert_email" {}
+variable "autoscaling_group_name" {}

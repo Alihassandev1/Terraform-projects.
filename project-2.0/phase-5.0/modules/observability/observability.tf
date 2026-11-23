@@ -20,7 +20,7 @@ resource "aws_cloudwatch_metric_alarm" "cpu" {
   threshold           = 80
 
   dimensions = {
-    InstanceId = var.instance_id
+    AutoScalingGroupName = var.autoscaling_group_name
   }
 }
 
@@ -49,7 +49,7 @@ resource "aws_cloudwatch_dashboard" "app" {
           region = "us-east-1"
 
           metrics = [
-            ["AWS/EC2", "CPUUtilization", "InstanceId", var.instance_id]
+            ["AWS/EC2", "CPUUtilization"]
           ]
 
           period = 300
@@ -66,7 +66,8 @@ resource "aws_cloudwatch_dashboard" "app" {
           region = "us-east-1"
 
           metrics = [
-            ["AWS/EC2", "NetworkIn", "InstanceId", var.instance_id],
+            ["AWS/EC2", "NetworkIn", "AutoScalingGroupName", var.autoscaling_group_name],
+            ["AWS/EC2", "NetworkOut", "AutoScalingGroupName", var.autoscaling_group_name],
             [".", "NetworkOut", ".", "."]
           ]
 

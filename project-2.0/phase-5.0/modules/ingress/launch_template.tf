@@ -11,12 +11,11 @@ resource "aws_launch_template" "app" {
     name = var.instance_profile_name
   }
 
-  user_data = base64encode(
-    templatefile("${path.module}/user_data.sh", {
-      docker_image = var.docker_image
-      app_port     = var.app_port
-      log_group    = var.log_group_name
-      aws_region   = "us-east-1"
+  user_data = base64encode(templatefile("${path.module}/templates/fastapi.sh.tftpl", 
+    {
+    cloudwatch_config = file("${path.module}/templates/cloudwatch-config.json")
+    container_name = var.container_name
+    docker_image   = var.container_docker_image
     })
   )
 

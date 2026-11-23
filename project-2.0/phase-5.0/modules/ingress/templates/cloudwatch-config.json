@@ -1,0 +1,60 @@
+{
+  "agent": {
+    "metrics_collection_interval": 60,
+    "run_as_user": "root"
+  },
+  "metrics": {
+    "namespace": "LinkedOps/EC2",
+    "append_dimensions": {
+      "InstanceId": "${aws:InstanceId}"
+    },
+    "metrics_collected": {
+      "mem": {
+        "measurement": [
+          "mem_used_percent"
+        ]
+      },
+      "disk": {
+        "measurement": [
+          "used_percent"
+        ],
+        "resources": [
+          "/"
+        ]
+      },
+      "swap": {
+        "measurement": [
+          "swap_used_percent"
+        ]
+      }
+    }
+  },
+  "logs": {
+    "logs_collected": {
+      "files": {
+        "collect_list": [
+          {
+            "file_path": "/var/log/syslog",
+            "log_group_name": "/linkedops/system",
+            "log_stream_name": "{instance_id}/syslog"
+          },
+          {
+            "file_path": "/var/log/auth.log",
+            "log_group_name": "/linkedops/system",
+            "log_stream_name": "{instance_id}/auth"
+          },
+          {
+            "file_path": "/var/log/cloud-init-output.log",
+            "log_group_name": "/linkedops/system",
+            "log_stream_name": "{instance_id}/cloud-init"
+          },
+          {
+            "file_path": "/var/log/linkedops/app.log",
+            "log_group_name": "/linkedops/application",
+            "log_stream_name": "{instance_id}/app"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -11,17 +11,6 @@ resource "aws_security_group" "alb" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  egress {
-    description = "Forward traffic to application"
-    from_port   = var.app_port
-    to_port     = var.app_port
-    protocol    = "tcp"
-
-    security_groups = [
-      aws_security_group.ec2.id
-    ]
-  }
-
   tags = {
     Name = "${var.project_name}-alb-sg"
   }

@@ -19,6 +19,11 @@ variable "public_subnet_ids" {
   type        = list(string)
 }
 
+variable "private_subnet_ids" {
+  description = "List of private subnet IDs"
+  type        = list(string)
+}
+
 variable "instance_type" {
   description = "The EC2 instance type"
   type        = string
@@ -44,4 +49,15 @@ variable "ami_id" {
   description = "The AMI ID for the EC2 instance"
   type        = string
   default     = "ami-0c55b159cbfafe1f0" # Amazon Linux 2 AMI
+}
+
+variable "container_name" {
+  description = "The name of the Docker container"
+  type        = string
+  default     = "myapp"
+}
+variable "container_docker_image" {
+  description = "The Docker image for the container"
+  type        = string
+  default     = "nginx:latest"
 }

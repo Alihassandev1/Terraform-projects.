@@ -13,15 +13,15 @@ module "roles" {
 
 module "secret" {
   source = "../../modules/secret"
-  environment  = var.environment
-  database_url = var.database_url
-  api_key      = var.api_key
+  environment_  = var.environment_
+  database_url_ = var.database_url_
+  api_key_      = var.api_key_
 }
 
 module "observability" {
   source = "../../modules/observability"
 
-  environment = var.environment
+  environment = var.environment_
   autoscaling_group_name = module.ingress.autoscaling_group_name
   alert_email = var.alert_email
 }

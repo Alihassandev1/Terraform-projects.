@@ -8,17 +8,17 @@ variable "container_name" {
   default = "my-container"
 }
 
-variable "api_key" {
+variable "api_key_" {
   type = string
   default = "fchgjklq90q843yruioj4ktn4123qredgfjkl"
 }
 
-variable "database_url" {
+variable "database_url_" {
   type = string
   default = "mysql://user:password@host:port/db"
 }
 
-variable "environment" {
+variable "environment_" {
   type = string
   default = "dev"
 }

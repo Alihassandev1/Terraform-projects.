@@ -11,3 +11,12 @@ resource "aws_s3_bucket_versioning" "tf_bucket_versioning" {
     status = "Enabled"
   }
 }
+
+resource "aws_s3_bucket" "imported_bucket" {
+  bucket = "amzn-first-s3-bucket.io"
+  tags = {
+    Name = "imported_bucket"
+    Environment = "dev"
+    Import = "true"
+  }
+}

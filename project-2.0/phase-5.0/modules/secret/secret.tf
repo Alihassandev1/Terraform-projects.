@@ -1,6 +1,6 @@
 resource "aws_secretsmanager_secret" "app_secret" {
-  name        = "${var.environment_}/linkedops"
-  description = "LinkedOps application secrets"
+  name        = "${var.environment_}/manage"
+  description = "Manage application secrets"
 }
 
 resource "aws_secretsmanager_secret_version" "app_secret" {

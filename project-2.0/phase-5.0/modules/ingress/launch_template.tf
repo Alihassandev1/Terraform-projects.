@@ -15,7 +15,7 @@ resource "aws_launch_template" "app" {
     {
     cloudwatch_config = file("${path.module}/templates/cloudwatch-config.json")
     container_name = var.container_name
-    docker_image   = var.container_docker_image
+    docker_image   = var.docker_image
     })
   )
 

@@ -35,11 +35,6 @@ variable "docker_image" {
   type        = string
 }
 
-variable "log_group_name" {
-  description = "The name of the CloudWatch log group"
-  type        = string
-}
-
 variable "instance_profile_name" {
   description = "The name of the IAM instance profile"
   type        = string
@@ -48,16 +43,11 @@ variable "instance_profile_name" {
 variable "ami_id" {
   description = "The AMI ID for the EC2 instance"
   type        = string
-  default     = "ami-0c55b159cbfafe1f0" # Amazon Linux 2 AMI
+  default     = "ami-0dbbc5f94779f577b" # Amazon Linux 2 AMI
 }
 
 variable "container_name" {
   description = "The name of the Docker container"
   type        = string
   default     = "myapp"
-}
-variable "container_docker_image" {
-  description = "The Docker image for the container"
-  type        = string
-  default     = "nginx:latest"
 }

@@ -11,6 +11,13 @@ module "roles" {
   secret_arn = module.secret.app_secret_id
 }
 
+module "secret" {
+  source = "../../modules/secret"
+  environment  = var.environment
+  database_url = var.database_url
+  api_key      = var.api_key
+}
+
 module "observability" {
   source = "../../modules/observability"
 
@@ -26,6 +33,5 @@ module "ingress" {
   public_subnet_ids     = module.network.public_subnet_ids
   private_subnet_ids    = module.network.private_subnet_ids
   docker_image          = var.docker_image
-  log_group_name        = module.observability.log_group_name
   instance_profile_name = module.roles.iam_instance_profile
 }

@@ -24,6 +24,18 @@ resource "aws_autoscaling_group" "app" {
     max_healthy_percentage = 120
   }
 
+  enabled_metrics = [
+  "GroupMinSize",
+  "GroupMaxSize",
+  "GroupDesiredCapacity",
+  "GroupInServiceInstances",
+  "GroupPendingInstances",
+  "GroupTerminatingInstances",
+  "GroupTotalInstances"
+]
+
+metrics_granularity = "1Minute"
+
   tag {
     key                 = "Name"
     value               = "${var.project_name}-asg-instance"
